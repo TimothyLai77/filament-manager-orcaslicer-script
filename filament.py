@@ -3,6 +3,9 @@ import re
 import requests
 from datetime import datetime
 
+# FILL IN ENDPOINT HERE:
+server='http://localhost:8080/api/'
+
 gcodeFile = sys.argv[1]
 # look for the name of the file, and the filament used.
 # ; printing object 3dbenchy.stl id:3152 copy 0
@@ -36,5 +39,5 @@ payload = {
 }
 
 # send to API
-requests.post('http://localhost:5000/api/receive', json=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+requests.post(server, json=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
 
