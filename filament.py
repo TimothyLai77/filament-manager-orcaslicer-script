@@ -1,6 +1,7 @@
 import sys
 import re
-
+import requests
+from datetime import datetime
 
 gcodeFile = sys.argv[1]
 # look for the name of the file, and the filament used.
@@ -27,7 +28,13 @@ with open(gcodeFile, 'r') as file:
         if (re.search(filamentAmountRegex, line) != None):
             filamentUsed = re.search(filamentAmountRegex, line).group(1) 
 
-    
-with open('/home/timothy/Desktop/test/output.txt', 'w') as file:
-    file.write(printObject+'\n')
-    file.write(filamentUsed)
+# build the payload
+payload = {
+    "printObject" : printObject,
+    "filamentUsed": float(filamentUsed),
+    "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+}
+
+# send to API
+requests.post('http://localhost:5000/api/receive', json=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+
