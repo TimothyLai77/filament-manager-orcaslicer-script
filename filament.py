@@ -4,7 +4,7 @@ import requests
 from datetime import datetime
 
 # FILL IN ENDPOINT HERE:
-server='http://localhost:8080/api/'
+server='http://localhost:8080/api/stagedjobs/'
 
 gcodeFile = sys.argv[1]
 # look for the name of the file, and the filament used.
@@ -12,7 +12,7 @@ gcodeFile = sys.argv[1]
 # ; filament used [g] = 14.82
 
 # match for gcode comment for '; printing object ' and capture on 'something.something'
-printNameRegex = re.compile(r"; printing object (\w+\.\w+)")
+printNameRegex = re.compile(r"; printing object (\w+)")
 
 # match for the gcode comment on 'filament used [g] = '
 # with a capture on the xx.xx number at the end
@@ -33,9 +33,9 @@ with open(gcodeFile, 'r') as file:
 
 # build the payload
 payload = {
-    "printObject" : printObject,
+    "name" : printObject,
     "filamentUsed": float(filamentUsed),
-    "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    "date": datetime.now().isoformat()
 }
 
 # send to API
