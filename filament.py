@@ -1,13 +1,16 @@
 import sys
 import re
 import requests
+import argparse
 from datetime import datetime
 
 
-# Usage: python3 filament.py <gcode file> <endpoint>
 
-gcodeFile = sys.argv[1]
-server= sys.argv[2]
+# Usage: python3 filament.py <endpoint> <gcode file> 
+server = sys.argv[1]
+gcodeFile = sys.argv[2]
+
+
 # look for the name of the file, and the filament used.
 # ; printing object 3dbenchy.stl id:3152 copy 0
 # ; filament used [g] = 14.82
